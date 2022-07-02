@@ -1,5 +1,6 @@
 import React from 'react'
 import { Provider } from 'react-native-paper'
+import axios from 'axios'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { theme } from './src/core/theme'
@@ -10,7 +11,11 @@ import {
   ResetPasswordScreen,
   Dashboard,
 } from './src/screens'
+import { API_PATH, LOGIN_SCREEN } from './store/constants'
 
+axios.defaults.baseURL = API_PATH.BASE
+if (LOGIN_SCREEN.TOKEN_NAME)
+  axios.defaults.headers.common['Authorization'] = LOGIN_SCREEN.TOKEN_NAME
 const Stack = createStackNavigator()
 
 export default function App() {

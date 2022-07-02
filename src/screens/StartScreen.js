@@ -9,9 +9,9 @@ export default function StartScreen({ navigation }) {
   return (
     <Background>
       <Logo />
-      <Header>Login Template</Header>
+      <Header>Login Library</Header>
       <Paragraph>
-        The easiest way to start with your amazing application.
+          Photo data management application.
       </Paragraph>
       <Button
         mode="contained"
@@ -19,12 +19,12 @@ export default function StartScreen({ navigation }) {
       >
         Login
       </Button>
-      <Button
-        mode="outlined"
-        onPress={() => navigation.navigate('RegisterScreen')}
-      >
-        Sign Up
-      </Button>
+      {/* <Button */}
+      {/*  mode="outlined" */}
+      {/*  onPress={() => navigation.navigate('RegisterScreen')} */}
+      {/* > */}
+      {/*  Sign Up */}
+      {/* </Button> */}
     </Background>
   )
 }
