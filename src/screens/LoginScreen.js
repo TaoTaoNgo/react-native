@@ -9,16 +9,15 @@ import Button from '../components/Button'
 import TextInput from '../components/TextInput'
 import BackButton from '../components/BackButton'
 import { theme } from '../core/theme'
-import { emailValidator } from '../helpers/emailValidator'
-import { passwordValidator } from '../helpers/passwordValidator'
+import { loginValidator } from '../helpers/loginValidator'
 import { API_PATH, LOGIN_SCREEN } from '../../store/constants'
 
 export default function LoginScreen({ navigation }) {
-  const [email, setEmail] = useState({ value: '', error: '' })
+  const [userid, setUserid] = useState({ value: '', error: '' })
   const [password, setPassword] = useState({ value: '', error: '' })
-
+  const [login, setLogin] = useState({ value: '', error: '' })
   const onLoginPressed = () => {
-    // const emailError = emailValidator(email.value)
+    // const userError = userValidator(email.value)
     // const passwordError = passwordValidator(password.value)
     // if (emailError || passwordError) {
     //   setEmail({ ...email, error: emailError })
@@ -27,19 +26,25 @@ export default function LoginScreen({ navigation }) {
     // }
     axios
       .post(API_PATH.LOGIN, {
-        userid: email.value,
+        userid: userid.value,
         password: password.value,
       })
       .then((res) => {
         console.log(res.data)
         window.localStorage.setItem(LOGIN_SCREEN.TOKEN_NAME, res.data.token)
-        setTimeout(() => {
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'Dashboard' }],
-          })
-        }, 1000)
+        setTimeout(() => {}, 1000)
         // console.log(window.localStorage.getItem(LOGIN_SCREEN.TOKEN_NAME))
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'Dashboard' }],
+        })
+      })
+      .catch((error) => {
+        const loginError = loginValidator(error.message)
+        console.log(loginError)
+        if (error.message) {
+          setLogin({ ...login, error: error.message })
+        }
       })
   }
 
@@ -49,16 +54,14 @@ export default function LoginScreen({ navigation }) {
       <Logo />
       <Header>Welcome back.</Header>
       <TextInput
-        label="Email"
+        label="UserId"
         returnKeyType="next"
-        value={email.value}
-        onChangeText={(text) => setEmail({ value: text, error: '' })}
+        value={userid.value}
+        onChangeText={(text) => setUserid({ value: text, error: '' })}
         // error={!!email.error}
         // errorText={email.error}
         autoCapitalize="none"
-        autoCompleteType="email"
-        textContentType="emailAddress"
-        keyboardType="email-address"
+        autoCompleteType="userid"
       />
       <TextInput
         label="Password"

@@ -1,4 +1,4 @@
 export function loginValidator(mess) {
-    if (!mess) return "Loggin fail"
-    return ''
+  if (!mess) return 'qwe'
+  return ''
 }
